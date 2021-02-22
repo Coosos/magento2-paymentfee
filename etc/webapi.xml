@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MagePrince
+ * Copyright (C) 2021 Mageprince <info@mageprince.com>
+ *
+ * @package Mageprince_Paymentfee
+ * @copyright Copyright (c) 2021 Mageprince (http://www.mageprince.com/)
+ * @license http://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MagePrince <info@mageprince.com>
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/guest-carts/mine/paymentfee/calculate" method="POST">
+        <service class="Mageprince\Paymentfee\Api\GuestPaymentFeeCalculateManagementInterface" method="calculate"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/carts/mine/paymentfee/calculate" method="POST">
+        <service class="Mageprince\Paymentfee\Api\PaymentFeeCalculateManagementInterface" method="calculate"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/carts/:cartId/paymentfee/calculate" method="POST">
+        <service class="Mageprince\Paymentfee\Api\PaymentFeeCalculateManagementInterface" method="calculate"/>
+        <resources>
+            <resource ref="Magento_Cart::manage"/>
+        </resources>
+    </route>
+</routes>
